@@ -48,7 +48,7 @@ cross-model edge everyone wants **already exists in the artefact** — it just h
 | Path | Contents |
 |---|---|
 | [`ontology/l1/`](ontology/l1/) | **L1** — recommendations, evidence, PICO, citations. 16 classes, 35 edges |
-| [`ontology/l2/`](ontology/l2/) | **DAK components** — nine, plus scheduling. 13 classes, 41 edges. Imports L1 |
+| [`ontology/l2/`](ontology/l2/) | **DAK components** — nine, plus scheduling. 13 classes, 44 edges. Imports L1 |
 | [`ontology/l2-bpmn/`](ontology/l2-bpmn/) | **BPMN interiors.** 6 classes, 20 edges. Imports L2 |
 | [`ontology/l2-dmn/`](ontology/l2-dmn/) | **DMN interiors.** 6 classes, 10 edges. Imports L2-BPMN |
 | [`ontology/l3/`](ontology/l3/) | **FHIR index.** 14 classes, 39 edges. Imports L2-DMN |
@@ -58,6 +58,7 @@ cross-model edge everyone wants **already exists in the artefact** — it just h
 | [`shapes/recommendation-graph.schema.json`](shapes/recommendation-graph.schema.json) | Graph document shape — tier 1 |
 | [`docs/SCOPE.md`](docs/SCOPE.md) | **Read first.** What this graph refuses to hold, and why |
 | [`docs/STORAGE.md`](docs/STORAGE.md) · [`docs/RAG.md`](docs/RAG.md) | Where instances live; the ingestion contract |
+| [`docs/COVERAGE.md`](docs/COVERAGE.md) | L1 publication coverage report — a contract: normative sentences, captured and accounted-for % |
 | [`tools/`](tools/) | Extractors, exporter, validator, negative tests. Plain Node, no dependencies |
 
 In each `ontology/<layer>/`, the `.json` is authored and the `.ttl`, `.cypher` and
@@ -237,7 +238,7 @@ class-pair while an OWL object property has one global domain and range.
 | **T2 Conformance** | Node types are declared classes; edges are licensed; references resolve across the document set; properties are declared; a `resolved` citation or join actually resolves | `tools/validate.mjs` |
 | **T3 Fidelity** | Does the graph faithfully represent the PDF, the BPMN, the DMN? | Human. Never auto-passed |
 
-T2 is negative-tested by [`tools/negative-test.mjs`](tools/negative-test.mjs) — 20 cases, run in CI.
+T2 is negative-tested by [`tools/negative-test.mjs`](tools/negative-test.mjs) — 34 cases, run in CI.
 The documents it checks are built in the test rather than committed, because this repository holds
 no data.
 Unknown classes, unlicensed edges, undeclared properties, citations falsely claiming resolution, a

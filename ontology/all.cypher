@@ -158,6 +158,9 @@ MATCH (s:KGClass {id:'data-element'}), (t:KGClass {id:'terminology-code'}) MERGE
 MATCH (s:KGClass {id:'program-indicator'}), (t:KGClass {id:'terminology-code'}) MERGE (s)-[:CROSSREFERENCES {predicate:'crossReferences'}]->(t);
 MATCH (s:KGClass {id:'functional-requirement'}), (t:KGClass {id:'terminology-code'}) MERGE (s)-[:CROSSREFERENCES {predicate:'crossReferences'}]->(t);
 MATCH (s:KGClass {id:'non-functional-requirement'}), (t:KGClass {id:'terminology-code'}) MERGE (s)-[:CROSSREFERENCES {predicate:'crossReferences'}]->(t);
+MATCH (s:KGClass {id:'functional-requirement'}), (t:KGClass {id:'recommendation'}) MERGE (s)-[:DERIVEDFROM {predicate:'derivedFrom'}]->(t);
+MATCH (s:KGClass {id:'non-functional-requirement'}), (t:KGClass {id:'recommendation'}) MERGE (s)-[:DERIVEDFROM {predicate:'derivedFrom'}]->(t);
+MATCH (s:KGClass {id:'requirement-statement'}), (t:KGClass {id:'test-scenario'}) MERGE (s)-[:VERIFIEDBY {predicate:'verifiedBy'}]->(t);
 
 // Verification. Must return 7 rows -- one per imported class this layer
 // builds on. Fewer means an imported layer was not loaded and edges above are missing.
