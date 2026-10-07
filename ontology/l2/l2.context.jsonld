@@ -156,6 +156,9 @@
     "describes": {
       "@id": "sgkg:describes"
     },
+    "verifiedBy": {
+      "@id": "sgkg:verifiedBy"
+    },
     "Publication": "sgkg:publication",
     "PublicationSection": "sgkg:publication-section",
     "Recommendation": "sgkg:recommendation",
