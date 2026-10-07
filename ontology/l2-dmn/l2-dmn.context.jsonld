@@ -117,6 +117,9 @@
     "appearsIn": {
       "@id": "sgkg:appearsIn"
     },
+    "verifiedBy": {
+      "@id": "sgkg:verifiedBy"
+    },
     "contains": {
       "@id": "sgkg:contains"
     },

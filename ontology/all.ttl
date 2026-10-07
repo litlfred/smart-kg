@@ -898,7 +898,7 @@ sgkg:RequirementStatement a owl:Class ;
   rdfs:subClassOf sgkg:Element ;
   rdfs:label "Requirement Statement" ;
   skos:notation "requirement-statement" ;
-  rdfs:comment "One numbered, labelled statement inside a requirement, with a conformance verb. A node rather than a property because conformance is queried across a whole DAK -- 'every SHALL in this kit, and what fulfils it' is the question requirements exist to answer." .
+  rdfs:comment "One numbered, labelled statement inside a requirement, with a conformance verb. A node rather than a property because conformance is queried across a whole DAK -- 'every SHALL in this kit, and what fulfils it' is the question requirements exist to answer. It also carries its own success criteria, so 'what would show this SHALL is met' is answerable per statement rather than per requirement." .
 
 sgkg:TestScenario a owl:Class ;
   rdfs:subClassOf sgkg:Component ;
@@ -976,6 +976,10 @@ sgkg:derivedFrom a owl:ObjectProperty ;
 sgkg:appearsIn a owl:ObjectProperty ;
   rdfs:label "appearsIn" ;
   rdfs:comment "A citation string appears in an L2 or L3 artefact at a stated location." .
+
+sgkg:verifiedBy a owl:ObjectProperty ;
+  rdfs:label "verifiedBy" ;
+  rdfs:comment "A requirement statement is verified by a test scenario. The statement is the granularity at which conformance is asserted, so it is also the granularity at which a test is claimed to check it. The edge records the claim that a scenario exists for the statement; whether the scenario actually exercises each success criterion is a review question, recorded per criterion by `verification` on successCriteria, not by this edge." .
 
 ### Licensed edges, as qualified sub-properties
 # One per (source class, predicate, target class) triple the ArchiMate model licenses.
@@ -1257,6 +1261,24 @@ sgkg:implementedBy_Recommendation_SchedulingLogic a owl:ObjectProperty ;
   rdfs:domain sgkg:Recommendation ;
   rdfs:range sgkg:SchedulingLogic ;
   rdfs:label "Recommendation implementedBy Scheduling Logic" .
+
+sgkg:derivedFrom_FunctionalRequirement_Recommendation a owl:ObjectProperty ;
+  rdfs:subPropertyOf sgkg:derivedFrom ;
+  rdfs:domain sgkg:FunctionalRequirement ;
+  rdfs:range sgkg:Recommendation ;
+  rdfs:label "Functional Requirement derivedFrom Recommendation" .
+
+sgkg:derivedFrom_NonFunctionalRequirement_Recommendation a owl:ObjectProperty ;
+  rdfs:subPropertyOf sgkg:derivedFrom ;
+  rdfs:domain sgkg:NonFunctionalRequirement ;
+  rdfs:range sgkg:Recommendation ;
+  rdfs:label "Non-Functional Requirement derivedFrom Recommendation" .
+
+sgkg:verifiedBy_RequirementStatement_TestScenario a owl:ObjectProperty ;
+  rdfs:subPropertyOf sgkg:verifiedBy ;
+  rdfs:domain sgkg:RequirementStatement ;
+  rdfs:range sgkg:TestScenario ;
+  rdfs:label "Requirement Statement verifiedBy Test Scenario" .
 
 
 
