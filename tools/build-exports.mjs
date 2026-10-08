@@ -109,6 +109,11 @@ export function buildCypher(ont, layer = { own: ont, imported: { classes: [], pr
   return L.join("\n") + "\n";
 }
 
+// Dublin Core terms a class property may be named for. A property with one of these names means
+// what Dublin Core means by it (publication's title, creator, issued...), so it expands to the
+// dcterms IRI rather than a private one.
+const DCTERMS = new Set(["title", "creator", "publisher", "issued", "modified", "language", "rights", "description", "identifier", "source"]);
+
 export function buildContext(ont, layer = { own: ont, imported: { classes: [], predicates: [], edges: [], layers: [] } }) {
   // The context covers imported terms as well as own ones: an L2 document names an l1:citation as
   // the target of citesSource, and a context that could not expand it would make the cross-layer
@@ -117,7 +122,27 @@ export function buildContext(ont, layer = { own: ont, imported: { classes: [], p
   const aliases = {};
   for (const c of scope.classes.values()) aliases[camel(c.name)] = `sgkg:${c.id}`;
   const predicates = {};
-  for (const p of scope.predicates.values()) predicates[p.predicate] = { "@id": `sgkg:${p.predicate}` };
+  // A predicate expands to the IRI the ontology declares for it (every one in this repository is
+  // sgkg:<predicate> today); an undeclared term in `predicate` would otherwise expand to nothing.
+  for (const p of scope.predicates.values()) predicates[p.predicate] = { "@id": p.iri ?? `sgkg:${p.predicate}` };
+  // `properties` is a node with its OWN context, so every property keeps its name as RDF.
+  //
+  // It was an @index container: `"pageRange": "11-12"` expanded to `sgkg:properties "11-12"`, and
+  // the name -- the only thing that says what "11-12" is -- was dropped. @nest (attach each property
+  // straight to the node) is NOT safe here: L2 and L3 classes have properties named `source` and
+  // `type`, which the document level already defines as rdf:subject and @type, and JSON-LD
+  // processors ignore a scoped context on a @nest term (measured with jsonld.js). So the nested
+  // object gets its own vocabulary: any property name the document level also uses is redefined
+  // to sgkg:<name> inside it, Dublin Core names go to dcterms, and everything else falls to @vocab.
+  const docTerms = new Set(["id", "type", "label", "properties", "nodes", "edges", "predicate", "source", "target",
+    "qualifier", "derivation", "evidence", "location", "quote", "note", "skill", "generatedAt", "wasDerivedFrom", "ontologyVersion"]);
+  const propertyTerms = { "@vocab": ont.namespace };
+  for (const c of scope.classes.values()) {
+    for (const name of c.properties ?? []) {
+      if (DCTERMS.has(name)) propertyTerms[name] = `dcterms:${name}`;
+      else if (docTerms.has(name) || name in predicates || name in aliases) propertyTerms[name] = `sgkg:${name}`;
+    }
+  }
   return {
     "@context": {
       "@version": 1.1,
@@ -129,10 +154,13 @@ export function buildContext(ont, layer = { own: ont, imported: { classes: [], p
       prov: "http://www.w3.org/ns/prov#",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       sgkg: ont.namespace,
+      // A node's `type` is a class id ("publication-section"), and the class's IRI is
+      // <namespace><id>. Without @vocab the id expands to nothing and every node loses its class.
+      "@vocab": ont.namespace,
       id: "@id",
       type: "@type",
       label: { "@id": "rdfs:label" },
-      properties: { "@id": "sgkg:properties", "@container": "@index" },
+      properties: { "@id": "sgkg:properties", "@context": propertyTerms },
       nodes: { "@id": "sgkg:node", "@container": "@set" },
       edges: { "@id": "sgkg:edge", "@container": "@set" },
       Statement: "rdf:Statement",

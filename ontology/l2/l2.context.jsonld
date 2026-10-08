@@ -9,6 +9,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "sgkg": "http://smart.who.int/kg/",
+    "@vocab": "http://smart.who.int/kg/",
     "id": "@id",
     "type": "@type",
     "label": {
@@ -16,7 +17,22 @@
     },
     "properties": {
       "@id": "sgkg:properties",
-      "@container": "@index"
+      "@context": {
+        "@vocab": "http://smart.who.int/kg/",
+        "title": "dcterms:title",
+        "creator": "dcterms:creator",
+        "publisher": "dcterms:publisher",
+        "issued": "dcterms:issued",
+        "modified": "dcterms:modified",
+        "language": "dcterms:language",
+        "rights": "dcterms:rights",
+        "label": "sgkg:label",
+        "identifier": "dcterms:identifier",
+        "description": "dcterms:description",
+        "id": "sgkg:id",
+        "source": "dcterms:source",
+        "type": "sgkg:type"
+      }
     },
     "nodes": {
       "@id": "sgkg:node",
@@ -73,103 +89,103 @@
       "@id": "sgkg:ontologyVersion"
     },
     "contains": {
-      "@id": "sgkg:contains"
+      "@id": "http://smart.who.int/kg/contains"
     },
     "hasSupplement": {
-      "@id": "sgkg:hasSupplement"
+      "@id": "http://smart.who.int/kg/hasSupplement"
     },
     "supersedes": {
-      "@id": "sgkg:supersedes"
+      "@id": "http://smart.who.int/kg/supersedes"
     },
     "refines": {
-      "@id": "sgkg:refines"
+      "@id": "http://smart.who.int/kg/refines"
     },
     "partOf": {
-      "@id": "sgkg:partOf"
+      "@id": "http://smart.who.int/kg/partOf"
     },
     "definedIn": {
-      "@id": "sgkg:definedIn"
+      "@id": "http://smart.who.int/kg/definedIn"
     },
     "presentedIn": {
-      "@id": "sgkg:presentedIn"
+      "@id": "http://smart.who.int/kg/presentedIn"
     },
     "answers": {
-      "@id": "sgkg:answers"
+      "@id": "http://smart.who.int/kg/answers"
     },
     "addresses": {
-      "@id": "sgkg:addresses"
+      "@id": "http://smart.who.int/kg/addresses"
     },
     "hasOutcome": {
-      "@id": "sgkg:hasOutcome"
+      "@id": "http://smart.who.int/kg/hasOutcome"
     },
     "forOutcome": {
-      "@id": "sgkg:forOutcome"
+      "@id": "http://smart.who.int/kg/forOutcome"
     },
     "aboutIntervention": {
-      "@id": "sgkg:aboutIntervention"
+      "@id": "http://smart.who.int/kg/aboutIntervention"
     },
     "supportedBy": {
-      "@id": "sgkg:supportedBy"
+      "@id": "http://smart.who.int/kg/supportedBy"
     },
     "hasRemark": {
-      "@id": "sgkg:hasRemark"
+      "@id": "http://smart.who.int/kg/hasRemark"
     },
     "recommends": {
-      "@id": "sgkg:recommends"
+      "@id": "http://smart.who.int/kg/recommends"
     },
     "measures": {
-      "@id": "sgkg:measures"
+      "@id": "http://smart.who.int/kg/measures"
     },
     "justifiedBy": {
-      "@id": "sgkg:justifiedBy"
+      "@id": "http://smart.who.int/kg/justifiedBy"
     },
     "crossReferences": {
-      "@id": "sgkg:crossReferences"
+      "@id": "http://smart.who.int/kg/crossReferences"
     },
     "classifiedAs": {
-      "@id": "sgkg:classifiedAs"
+      "@id": "http://smart.who.int/kg/classifiedAs"
     },
     "numberedAs": {
-      "@id": "sgkg:numberedAs"
+      "@id": "http://smart.who.int/kg/numberedAs"
     },
     "resolvesTo": {
-      "@id": "sgkg:resolvesTo"
+      "@id": "http://smart.who.int/kg/resolvesTo"
     },
     "hasComponent": {
-      "@id": "sgkg:hasComponent"
+      "@id": "http://smart.who.int/kg/hasComponent"
     },
     "sourcedFrom": {
-      "@id": "sgkg:sourcedFrom"
+      "@id": "http://smart.who.int/kg/sourcedFrom"
     },
     "realises": {
-      "@id": "sgkg:realises"
+      "@id": "http://smart.who.int/kg/realises"
     },
     "involves": {
-      "@id": "sgkg:involves"
+      "@id": "http://smart.who.int/kg/involves"
     },
     "fulfilledBy": {
-      "@id": "sgkg:fulfilledBy"
+      "@id": "http://smart.who.int/kg/fulfilledBy"
     },
     "hasStatement": {
-      "@id": "sgkg:hasStatement"
+      "@id": "http://smart.who.int/kg/hasStatement"
     },
     "listsTask": {
-      "@id": "sgkg:listsTask"
+      "@id": "http://smart.who.int/kg/listsTask"
     },
     "references": {
-      "@id": "sgkg:references"
+      "@id": "http://smart.who.int/kg/references"
     },
     "describes": {
-      "@id": "sgkg:describes"
+      "@id": "http://smart.who.int/kg/describes"
     },
     "implementedBy": {
-      "@id": "sgkg:implementedBy"
+      "@id": "http://smart.who.int/kg/implementedBy"
     },
     "derivedFrom": {
-      "@id": "sgkg:derivedFrom"
+      "@id": "http://smart.who.int/kg/derivedFrom"
     },
     "appearsIn": {
-      "@id": "sgkg:appearsIn"
+      "@id": "http://smart.who.int/kg/appearsIn"
     },
     "Publication": "sgkg:publication",
     "PublicationSection": "sgkg:publication-section",

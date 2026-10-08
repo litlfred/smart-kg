@@ -45,6 +45,14 @@ jobs:
       - name: Prove L1 still answers the questions it exists for
         run: node tools/goal-test.mjs
 
+      # A context can be valid JSON-LD and still drop most of a document: node classes, property
+      # names, predicates it does not know. This expands every emitted document with its layer's
+      # own context, served offline, and checks each survives as RDF.
+      - name: Prove each layer's JSON-LD context keeps the document's meaning
+        run: |
+          npm install --no-save --no-audit --no-fund jsonld@8
+          node tools/context-test.mjs
+
       # Tier 1: the same documents satisfy the document shape. Separate from the step above
       # because a document can conform to the ontology and still be malformed.
       - name: Validate documents against the shape schema

@@ -210,6 +210,7 @@ node tools/build-exports.mjs          # regenerate every ontology/<layer>/ proje
                                       # plus ontology/all.{cypher,ttl}
 node tools/build-exports.mjs --check  # fail if any of it is stale
 node tools/negative-test.mjs          # prove tier 2 fails on what it claims to catch
+node tools/context-test.mjs           # prove each JSON-LD context keeps classes, property names, predicates (needs jsonld)
 ```
 
 **Extraction, when you point it at a DAK.** Output goes wherever you say; nothing is written back
